@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Register - ShopEase</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+  <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
+    <h1 class="text-2xl font-bold mb-6 text-center text-yellow-700">ShopEase Registration</h1>
+    <form id="register-form" class="space-y-4" novalidate>
+      <div>
+        <label for="email" class="block mb-1 font-semibold text-gray-700">Email</label>
+        <input type="email" id="email" name="email" required placeholder="you@example.com" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400" />
+        <p id="email-error" class="text-red-600 text-sm mt-1 hidden">Please enter a valid email.</p>
+      </div>
+      <div>
+        <label for="password" class="block mb-1 font-semibold text-gray-700">Password</label>
+        <input type="password" id="password" name="password" required placeholder="Enter your password" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400" />
+        <p id="password-error" class="text-red-600 text-sm mt-1 hidden">Please enter a password (min 6 characters).</p>
+      </div>
+      <div>
+        <label for="confirm-password" class="block mb-1 font-semibold text-gray-700">Confirm Password</label>
+        <input type="password" id="confirm-password" name="confirm-password" required placeholder="Confirm your password" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400" />
+        <p id="confirm-password-error" class="text-red-600 text-sm mt-1 hidden">Passwords do not match.</p>
+      </div>
+      <button type="submit" class="w-full bg-yellow-600 text-white py-2 rounded hover:bg-yellow-700">Register</button>
+    </form>
+    <p class="mt-4 text-center text-gray-600">
+      Already have an account? <a href="login.html" class="text-yellow-600 hover:underline">Login here</a>
+    </p>
+  </div>
+
+  <script src="register.js"></script>
+</body>
+</html>

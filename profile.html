@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Profile - ShopEase</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <header class="bg-yellow-600 p-4 text-white shadow-lg flex items-center justify-between">
+    <h1 class="text-2xl font-bold">My Profile</h1>
+    <a href="index.html" class="bg-yellow-700 hover:bg-yellow-800 px-3 py-1 rounded">Home</a>
+  </header>
+
+  <main class="flex-1 p-6 max-w-3xl mx-auto bg-white rounded shadow mt-6">
+    <section>
+      <h2 class="text-xl font-semibold mb-4">User Information</h2>
+      <p id="user-email" class="mb-6">Loading user info...</p>
+      <button id="logout-button" class="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700">Logout</button>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const userEmailElem = document.getElementById('user-email');
+      const logoutButton = document.getElementById('logout-button');
+
+      const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+      if (loggedInUser && loggedInUser.email) {
+        userEmailElem.textContent = `Email: ${loggedInUser.email}`;
+      } else {
+        userEmailElem.textContent = 'No user logged in.';
+      }
+
+      logoutButton.addEventListener('click', () => {
+        localStorage.removeItem('loggedInUser');
+        alert('You have been logged out.');
+        window.location.href = 'index.html';
+      });
+    });
+  </script>
+</body>
+</html>

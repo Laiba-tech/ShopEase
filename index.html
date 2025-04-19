@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Amazon Clone Prototype</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-yellow-600 p-4 flex items-center justify-between text-white shadow-lg">
+    <div class="text-3xl font-bold cursor-pointer">ShopEase</div>
+    <div class="flex-1 mx-4">
+      <input id="search-input" type="text" placeholder="Search ShopEase" class="w-full p-2 rounded border border-yellow-400 focus:outline-none focus:ring-2 focus:ring-yellow-300" />
+    </div>
+    <div class="flex items-center space-x-4" id="user-controls">
+      <a href="login.html" id="login-link" class="text-white bg-yellow-700 px-3 py-1 rounded hover:bg-yellow-800">Login</a>
+      <button id="logout-button" class="hidden text-white bg-yellow-700 px-3 py-1 rounded hover:bg-yellow-800">Logout</button>
+      <span id="user-greeting" class="hidden text-yellow-100 font-semibold"></span>
+      <a href="profile.html" class="text-white bg-yellow-700 px-3 py-1 rounded hover:bg-yellow-800">My Profile</a>
+      <a href="contact.html" class="text-white bg-yellow-700 px-3 py-1 rounded hover:bg-yellow-800">Contact</a>
+      <a href="help.html" class="text-white bg-yellow-700 px-3 py-1 rounded hover:bg-yellow-800">Help Centre</a>
+      <button id="order-history-button" class="relative text-white bg-yellow-700 px-3 py-1 rounded hover:bg-yellow-800">
+        Order History
+      </button>
+      <button id="wishlist-button" class="relative">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 21l-7.682-7.682a4.5 4.5 0 010-6.364z" />
+        </svg>
+        <span id="wishlist-count" class="absolute -top-2 -right-2 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
+      </button>
+      <button id="cart-button" class="relative">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9m5-9v9m4-9v9m5-9l2 9" />
+        </svg>
+        <span id="cart-count" class="absolute -top-2 -right-2 bg-yellow-300 text-black rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="flex flex-1 p-6 gap-6">
+    <!-- Sidebar Filters -->
+    <aside class="w-64 bg-yellow-50 p-4 rounded shadow">
+      <h2 class="text-xl font-semibold mb-4 text-yellow-800">Departments</h2>
+      <ul class="space-y-2 text-yellow-900">
+        <li class="cursor-pointer hover:text-yellow-700">All</li>
+        <li class="cursor-pointer hover:text-yellow-700">Electronics</li>
+        <li class="cursor-pointer hover:text-yellow-700">Clothing</li>
+        <li class="cursor-pointer hover:text-yellow-700">Books</li>
+        <li class="cursor-pointer hover:text-yellow-700">Home & Kitchen</li>
+        <li class="cursor-pointer hover:text-yellow-700">Toys & Games</li>
+      </ul>
+      <div class="mt-6">
+        <label for="sort-select" class="block mb-2 text-yellow-800 font-semibold">Sort by:</label>
+        <select id="sort-select" class="w-full border border-yellow-400 rounded p-1 focus:outline-none focus:ring-2 focus:ring-yellow-300">
+          <option value="default">Default</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="popularity">Popularity</option>
+        </select>
+      </div>
+    </aside>
+
+    <!-- Products Grid -->
+    <section class="flex-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="product-grid">
+      <!-- Products will be dynamically inserted here -->
+    </section>
+  </main>
+
+  <!-- Cart Modal -->
+  <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-end">
+    <div class="bg-white w-96 h-full p-4 flex flex-col">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-semibold">Shopping Cart</h2>
+        <button id="close-cart" class="text-gray-600 hover:text-gray-900">&times;</button>
+      </div>
+      <div id="cart-items" class="flex-1 overflow-y-auto">
+        <!-- Cart items will be dynamically inserted here -->
+      </div>
+      <div class="mt-4">
+        <div class="flex justify-between font-semibold text-lg">
+          <span>Total:</span>
+          <span id="cart-total">Rs. 0.00</span>
+        </div>
+        <button id="checkout" class="mt-4 w-full bg-yellow-500 text-black py-2 rounded hover:bg-yellow-600">Checkout</button>
+      </div>
+
+      <form id="checkout-form" class="hidden mt-4 space-y-4 overflow-y-auto flex-1" novalidate>
+        <h3 class="text-lg font-semibold mb-2">Shipping Address</h3>
+        <input type="text" id="name" name="name" placeholder="Full Name" required class="w-full p-2 border border-gray-300 rounded" />
+        <input type="text" id="street" name="street" placeholder="Street Address" required class="w-full p-2 border border-gray-300 rounded" />
+        <input type="text" id="city" name="city" placeholder="City" required class="w-full p-2 border border-gray-300 rounded" />
+        <input type="text" id="state" name="state" placeholder="State" required class="w-full p-2 border border-gray-300 rounded" />
+        <input type="text" id="zip" name="zip" placeholder="ZIP Code" required class="w-full p-2 border border-gray-300 rounded" />
+
+        <h3 class="text-lg font-semibold mb-2">Payment Details</h3>
+        <input type="text" id="card-number" name="card-number" placeholder="Card Number" required class="w-full p-2 border border-gray-300 rounded" maxlength="19" />
+        <input type="text" id="expiry" name="expiry" placeholder="Expiry (MM/YY)" required class="w-full p-2 border border-gray-300 rounded" maxlength="5" />
+        <input type="text" id="cvv" name="cvv" placeholder="CVV" required class="w-full p-2 border border-gray-300 rounded" maxlength="4" />
+
+        <div class="flex justify-between">
+          <button type="submit" class="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700">Place Order</button>
+          <button type="button" id="cancel-checkout" class="bg-gray-400 text-black py-2 px-4 rounded hover:bg-gray-500">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+
+  <!-- Wishlist Modal -->
+  <div id="wishlist-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-end">
+    <div class="bg-white w-96 h-full p-4 flex flex-col">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-semibold">Wishlist</h2>
+        <button id="close-wishlist" class="text-gray-600 hover:text-gray-900">&times;</button>
+      </div>
+      <div id="wishlist-items" class="flex-1 overflow-y-auto">
+        <!-- Wishlist items will be dynamically inserted here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Order History Modal -->
+  <div id="order-history-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-end">
+    <div class="bg-white w-96 h-full p-4 flex flex-col">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-semibold">Order History</h2>
+        <button id="close-order-history" class="text-gray-600 hover:text-gray-900">&times;</button>
+      </div>
+      <div id="order-history-list" class="flex-1 overflow-y-auto">
+        <!-- Order history items will be dynamically inserted here -->
+      </div>
+      <div id="order-tracking" class="hidden flex flex-col">
+        <p id="tracking-status" class="mb-4 font-semibold"></p>
+        <button id="close-tracking" class="self-end bg-yellow-500 text-black py-1 px-3 rounded hover:bg-yellow-600">Close Tracking</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
