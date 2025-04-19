@@ -1,4 +1,4 @@
-# Amazon Clone Prototype - ShopEase
+# Prototype ShopEase
 
 This is a simple e-commerce web application prototype named **ShopEase**, designed to demonstrate core e-commerce functionalities including product browsing, search, filtering, user authentication, cart and wishlist management, order history, and product reviews with moderation.
 
